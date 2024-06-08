@@ -1,5 +1,5 @@
-# from .foo import FooTest
+from .normalize import NormalizeTest
 
 __all__ = [
-    # "FooTest",
+    "NormalizeTest",
 ]
