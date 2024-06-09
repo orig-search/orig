@@ -22,6 +22,18 @@ class RemoveDocstringsAndTypes(ast.NodeTransformer):
             return None
         return node
 
+    def visit_FunctionDef(self, node: ast.FunctionDef) -> ast.FunctionDef:
+        modified = self.generic_visit(node)
+        if not modified.body:
+            modified.body.append(ast.Pass())
+        return modified
+
+    visit_ClassDef = visit_FunctionDef
+    visit_If = visit_FunctionDef
+    visit_ExceptHandler = visit_FunctionDef
+    visit_Try = visit_FunctionDef
+    # N.b. Try has finalbody, but it can safely be empty
+
 
 def normalize(mod: ast.Module) -> ast.Module:
     return RemoveDocstringsAndTypes().visit(mod)

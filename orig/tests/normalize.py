@@ -37,3 +37,6 @@ class NormalizeTest(unittest.TestCase):
 
     def test_string_stmt(self):
         self.assertEqual("x", ast.unparse(normalize(ast.parse("'f'\nx"))))
+
+    def test_only_string_stmt(self):
+        self.assertEqual("def x():\n    pass", ast.unparse(normalize(ast.parse("def x(): ''"))))
